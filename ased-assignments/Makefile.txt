@@ -1,0 +1,21 @@
+################################################################################
+#
+# aesd-assignments
+#
+################################################################################
+
+AESD_ASSIGNMENTS_VERSION = $(shell cat $(@D).version 2devnull  echo unknown)
+AESD_ASSIGNMENTS_SITE = gitgithub.comyour_usernameyour_assignment_repo.git
+AESD_ASSIGNMENTS_SITE_METHOD = git
+
+define AESD_ASSIGNMENTS_BUILD_CMDS
+        $(MAKE) -C $(@D) all
+endef
+
+define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
+        $(INSTALL) -D -m 755 $(@D)tester.sh $(TARGET_DIR)usrbintester.sh
+        $(INSTALL) -D -m 755 $(@D)writer $(TARGET_DIR)usrbinwriter
+        $(INSTALL) -D -m 755 $(@D)finder.sh $(TARGET_DIR)usrbinfinder.sh
+endef
+
+$(eval $(generic-package))
